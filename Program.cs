@@ -1,2 +1,2 @@
-﻿using var game = new RogueGame.Game1();
+﻿using var game = new RogueGame.Core.Game1();
 game.Run();

@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"e:/PC/repositorios/RogueGame/Content/Arial.spritefont","e:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Arial.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21538,0.1433352
+"e:/PC/repositorios/RogueGame/Content/enemy0.png","e:/PC/repositorios/RogueGame/Content/bin/DesktopGL/enemy0.xnb","TextureProcessor","Texture2DContent",4196,4181,0.0092914
+"e:/PC/repositorios/RogueGame/Content/player.png","e:/PC/repositorios/RogueGame/Content/bin/DesktopGL/player.xnb","TextureProcessor","Texture2DContent",4196,4181,0.001764
