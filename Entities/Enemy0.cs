@@ -10,21 +10,35 @@ namespace RogueGame.Entities
         private Vector2 direction;
 
         public Enemy0(Texture2D texture, Vector2 startPosition) 
-            : base(texture, startPosition, health: 3, damage: 1, speed: 100f)
+            : base(texture, startPosition, health: 3, damage: 1, speed: 50f)
         {
             direction = new Vector2(1, 0);  // Comienza moviéndose hacia la derecha
         }
 
-        protected override void Move(GameTime gameTime)
+        protected override void Move(GameTime gameTime, Player player)
         {
-            // Movimiento de izquierda a derecha y rebote
-            Position += direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (!IsAlive) return;
 
-            // Lógica para cambiar de dirección al tocar los bordes de la pantalla
-            if (Position.X <= 0 || Position.X + Width >= Data.ScreenW)
+            Vector2 direction = player.Position - Position;
+            if (direction != Vector2.Zero)
             {
-                direction.X *= -1;  // Invierte la dirección horizontal
+                direction.Normalize();
+                Position += direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
+            // Verificar colisión con el jugador
+            if (GetBounds().Intersects(player.GetBounds()))
+            {
+                Attack(player);
+            }
+            Position = new Vector2(
+                MathHelper.Clamp(Position.X, 0, Data.ScreenW - Texture.Width),
+                MathHelper.Clamp(Position.Y, 0, Data.ScreenH - Texture.Height)
+            );
+        }
+        public override void Update(GameTime gameTime, Player player)
+        {
+            Move(gameTime, player);
+            base.Update(gameTime, player);
         }
 
         // Sobrescribir el método de muerte para efectos específicos

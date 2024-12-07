@@ -8,17 +8,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RogueGame.Entities;
 using RogueGame.Rooms;
+using RogueGame.Core;
 
 namespace RogueGame.Core
 {
     public class SceneManager
     {
-        private SpriteFont _font;
         private string _gameOverMessage = "PERDISTE MAMAHUEVO";
 
-        public void LoadContent(ContentManager content)
+        public void LoadContent(ContentManager content, RoomManager roomManager)
         {
-            _font = content.Load<SpriteFont>("Arial");
+            if (Data.CurrentState == Data.SceneState.Game)
+                roomManager.LoadContent(content);
         }
 
         public void Update(GameTime gameTime, RoomManager roomManager, Player player)
@@ -30,11 +31,12 @@ namespace RogueGame.Core
                     break;
                 case Data.SceneState.Game:
                     roomManager.Update(gameTime, player);
+                    player.Update(gameTime,player);
                     if (!player.IsAlive)
                         Data.CurrentState = Data.SceneState.GameOver;
                     break;
                 case Data.SceneState.GameOver:
-                    UpdateGameOver();
+                    UpdateGameOver(roomManager, player);
                     break;
             }
         }
@@ -63,21 +65,25 @@ namespace RogueGame.Core
                 Data.CurrentState = Data.SceneState.Game;
             }
         }
-         private void UpdateGameOver()
+        private void UpdateGameOver(RoomManager roomManager, Player player)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 Data.CurrentState = Data.SceneState.Menu;
+                player.Health = 3;
+                player.Position = Data.ScreenCenter;
+
+                roomManager.ResetRoom(player);
             }
         }
         private void DrawMenu(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(_font, "Presiona Enter para jugar", new Vector2(300, 200), Color.White);
+            spriteBatch.DrawString(Game1.font, "Presiona Enter para jugar", Data.ScreenCenter, Color.White);
         }
 
         private void DrawGameOver(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(_font, _gameOverMessage, new Vector2(200, 200), Color.Red);
+            spriteBatch.DrawString(Game1.font, _gameOverMessage, Data.ScreenCenter, Color.Red);
         }
     }
 

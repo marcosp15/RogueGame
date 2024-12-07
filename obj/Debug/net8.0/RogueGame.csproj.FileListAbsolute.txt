@@ -27,3 +27,6 @@ E:\PC\repositorios\RogueGame\obj\Debug\net8.0\ref\RogueGame.dll
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\enemy0.xnb
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\player.xnb
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\Arial.xnb
+e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\defaultProyectil.xnb
+e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\arenabackground.xnb
+e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\border.xnb

@@ -25,7 +25,7 @@ namespace RogueGame.Entities
         }
 
         // Método abstracto para obligar a las subclases a definir su lógica de actualización
-        public abstract void Update(GameTime gameTime);
+        public abstract void Update(GameTime gameTime, Player player);
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
@@ -37,10 +37,6 @@ namespace RogueGame.Entities
             return new Rectangle((int)Position.X, (int)Position.Y, (int)Width, (int)Height);
         }
 
-        public Rectangle getBounds()
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

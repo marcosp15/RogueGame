@@ -14,9 +14,9 @@ namespace RogueGame.Entities
         float Width {get;}
         float Height {get;}
 
-        void Update(GameTime gameTime);
+        void Update(GameTime gameTime, Player player);
         void Draw(SpriteBatch spriteBatch);
 
-        Rectangle getBounds();
+        Rectangle GetBounds();
     }
 }

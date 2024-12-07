@@ -4,11 +4,17 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>e:/PC/repositorios/RogueGame/Content/arenabackground.png</File>
     <File>e:/PC/repositorios/RogueGame/Content/Arial.spritefont</File>
+    <File>e:/PC/repositorios/RogueGame/Content/border.png</File>
+    <File>e:/PC/repositorios/RogueGame/Content/defaultProyectil.png</File>
     <File>e:/PC/repositorios/RogueGame/Content/enemy0.png</File>
     <File>e:/PC/repositorios/RogueGame/Content/player.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

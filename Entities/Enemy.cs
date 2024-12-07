@@ -27,11 +27,11 @@ namespace RogueGame.Entities
             DamageTimer = 0;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, Player player)
         {
             if (!IsAlive) return;
 
-            Move(gameTime);
+            Move(gameTime,player);
             DamageTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
@@ -46,9 +46,8 @@ namespace RogueGame.Entities
         // Método para recibir daño
         public void TakeDamage(int amount)
         {
-            Health -= amount;
-            if (Health <= 0)
-                OnDeath();
+            Health = Math.Max(Health - amount, 0);
+            if (!IsAlive) OnDeath();
         }
 
         protected virtual void OnDeath()
@@ -58,7 +57,7 @@ namespace RogueGame.Entities
         }
 
         // Método abstracto que define el movimiento específico del enemigo
-        protected abstract void Move(GameTime gameTime);
+        protected abstract void Move(GameTime gameTime, Player player);
 
         // Método para atacar (puede ser sobrescrito en subclases)
         public virtual void Attack(Player player)
@@ -68,6 +67,11 @@ namespace RogueGame.Entities
                 player.TakeDamage(Damage);
                 DamageTimer = 0;
             }
+        }
+
+        public void SetPosition(Vector2 pos)
+        {
+            Position = pos;
         }
     
     }
