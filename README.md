@@ -1,1 +1,3 @@
 # RogueGame
+
+Juego roguelike!
