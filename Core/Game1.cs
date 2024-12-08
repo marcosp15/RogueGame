@@ -15,11 +15,11 @@ public class Game1 : Game
     private SceneManager _sceneManager;
     private RoomManager _roomManager;
     public Player _player;
+    public MiniMap _miniMap;
     public static SpriteFont font {get; set;}
 
     public Game1()
     {
-        
         _graphics = new GraphicsDeviceManager(this);
         _graphics.PreferredBackBufferHeight = Data.ScreenH;
         _graphics.PreferredBackBufferWidth = Data.ScreenW;
@@ -31,7 +31,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         _sceneManager = new SceneManager();
-        _roomManager = new RoomManager(Content);
+        _roomManager = new RoomManager(Content, _miniMap);
 
         base.Initialize();
     }
@@ -42,8 +42,10 @@ public class Game1 : Game
         font = Content.Load<SpriteFont>("Arial");
         Texture2D playerTexture = Content.Load<Texture2D>("player");
         Texture2D proyectilTexture = Content.Load<Texture2D>("defaultProyectil");
+        Texture2D miniMapRoomTexture = Content.Load<Texture2D>("minimapTexture");
         _player = new Player(playerTexture,Data.ScreenCenter);
         _player.ProyectilTexture = proyectilTexture;
+        _miniMap = new MiniMap(miniMapRoomTexture, new Vector2(24,24), _roomManager.GetRooms());
 
         _sceneManager.LoadContent(Content,_roomManager);
         
@@ -61,6 +63,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.DarkKhaki);
         _spriteBatch.Begin();
         _sceneManager.Draw(_spriteBatch, _roomManager, _player);
+        _miniMap.Draw(_spriteBatch,_roomManager.GetCurrentRoom());
         _spriteBatch.End();
 
         base.Draw(gameTime);

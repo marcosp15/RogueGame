@@ -7,11 +7,19 @@
     <File>E:/PC/repositorios/RogueGame/Content/arenabackground.png</File>
     <File>E:/PC/repositorios/RogueGame/Content/Arial.spritefont</File>
     <File>E:/PC/repositorios/RogueGame/Content/border.png</File>
+    <File>E:/PC/repositorios/RogueGame/Content/Boss0.png</File>
     <File>E:/PC/repositorios/RogueGame/Content/defaultProyectil.png</File>
     <File>E:/PC/repositorios/RogueGame/Content/enemy0.png</File>
+    <File>E:/PC/repositorios/RogueGame/Content/Enemy1.png</File>
+    <File>E:/PC/repositorios/RogueGame/Content/minimapTexture.png</File>
     <File>E:/PC/repositorios/RogueGame/Content/player.png</File>
+    <File>E:/PC/repositorios/RogueGame/Content/proyEnemy1.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

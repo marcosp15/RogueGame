@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>e:/PC/repositorios/RogueGame/Content/arenabackground.png</SourceFile>
-  <SourceTime>2024-12-07T17:42:43.8745298-03:00</SourceTime>
+  <SourceTime>2024-12-07T17:51:07.6093569-03:00</SourceTime>
   <DestFile>e:/PC/repositorios/RogueGame/Content/bin/DesktopGL/arenabackground.xnb</DestFile>
-  <DestTime>2024-12-07T17:42:45.7218571-03:00</DestTime>
+  <DestTime>2024-12-08T00:56:23.1607234-03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-16T14:05:56-03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

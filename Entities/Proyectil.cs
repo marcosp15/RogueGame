@@ -26,12 +26,12 @@ namespace JuegoHorda.Entities
         }
 
         // Método para mover el proyectil
-        public int Update(GameTime gameTime, List<Enemy> enemigos)
+        public int Update(GameTime gameTime, List<Entity> enemigos)
         {
             Position += Direction * Speed;
             foreach (var enemigo in enemigos)
             {
-                if (Hitbox.Intersects(enemigo.GetBounds()))
+                if (enemigo.IsAlive() && Hitbox.Intersects(enemigo.GetBounds()))
                 {
                     enemigo.TakeDamage(Damage);
                     return 1;

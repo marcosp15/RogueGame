@@ -32,7 +32,7 @@ namespace RogueGame.Core
                 case Data.SceneState.Game:
                     roomManager.Update(gameTime, player);
                     player.Update(gameTime,player);
-                    if (!player.IsAlive)
+                    if (!player.IsAlive())
                         Data.CurrentState = Data.SceneState.GameOver;
                     break;
                 case Data.SceneState.GameOver:

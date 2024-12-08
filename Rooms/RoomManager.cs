@@ -17,49 +17,44 @@ namespace RogueGame.Rooms
         private Room _currentRoom;
         private ContentManager Content;
         private Random random;
+        private MiniMap _miniMap;
 
-        public RoomManager(ContentManager content)
+        public RoomManager(ContentManager content, MiniMap miniMap)
         {
             _rooms = new List<Room>();
             random = new Random();
             Content = content;
+            _miniMap = miniMap;
         }
 
         public void LoadContent(ContentManager content)
         {
-            var enemyTexture = content.Load<Texture2D>("enemy0");
+            var enemy0Texture = content.Load<Texture2D>("enemy0");
+            var enemy1Texture = content.Load<Texture2D>("Enemy1");
+            var boss0Texture = content.Load<Texture2D>("Boss0");
+            var proyectilEnemy1Texture = content.Load<Texture2D>("proyEnemy1");
+
             Queue<Room> habitaciones_disponibles = new Queue<Room>();
 
-            // Crear habitaciones y conectarlas
-            /*int numero_habitacion = 1;
-            Room room1 = new Room(numero_habitacion++);
-            Room room2 = new Room(numero_habitacion++);
-            Room room3 = new Room(numero_habitacion++);
-
-            room1.AttachRoom(room2, 1); // Conectar room1 a room2 hacia la derecha (Este)
-            room2.AttachRoom(room3, 2); // Conectar room2 a room3 hacia abajo (Sur)
-
-            room1.LoadContent(content);
-            room2.LoadContent(content);
-            room3.LoadContent(content);
-
-            room1.AddEnemy(new Enemy0(enemyTexture, new Vector2(200, 100)));
-            room2.AddEnemy(new Enemy0(enemyTexture, new Vector2(300, 200)));
-            room2.AddEnemy(new Enemy0(enemyTexture, new Vector2(300, 600)));
-            room2.AddEnemy(new Enemy0(enemyTexture, new Vector2(800, 300)));
-            room3.AddEnemy(new Enemy0(enemyTexture, new Vector2(400, 300)));
-
-            _rooms.Add(room1);
-            _rooms.Add(room2);
-            _rooms.Add(room3);*/
-            Room r;
-            for (int i = 0; i < 11; i++)
+            Room r = new Room(0);
+            r.LoadContent(content);
+            _rooms.Add(r);
+            habitaciones_disponibles.Enqueue(r);
+            _currentRoom = _rooms[0]; // Comenzar en la primera habitación
+            _currentRoom.isDiscovered = true;
+            for (int i = 1; i < 5; i++)
             {
                 r = new Room(i);
                 r.LoadContent(content);
                 for (int j = 0; j < 1 + random.Next() % 5; j++)
                 {
-                    r.AddEnemy(new Enemy0(enemyTexture, new Vector2(200 + random.Next() % 800, 200 + random.Next() % 400)));
+                    if (random.NextDouble() < 0.7)
+                    {
+                        Enemy1 enemy1 = new Enemy1(enemy1Texture, new Vector2(400 + random.Next() % 400, 200 + random.Next() % 400));
+                        enemy1.ProyectilTexture = proyectilEnemy1Texture;
+                        r.AddEnemy(enemy1);
+                    }
+                    r.AddEnemy(new Enemy0(enemy0Texture, new Vector2(200 + random.Next() % 800, 200 + random.Next() % 400)));
                 }
                 _rooms.Add(r);
                 habitaciones_disponibles.Enqueue(r);
@@ -67,6 +62,10 @@ namespace RogueGame.Rooms
             while (habitaciones_disponibles.Count() > 0)
             {
                 Room room = habitaciones_disponibles.Dequeue();
+                if (habitaciones_disponibles.Count == 0)
+                {
+                    room.AddEnemy(new Boss0(boss0Texture, new Vector2(0,0)));
+                }
                 for (int i = 0; i < 4; i++)
                 {
                     if (random.NextDouble() < 0.5) // 50% de chances de conectar una habitacion en la puerta i
@@ -82,19 +81,12 @@ namespace RogueGame.Rooms
                 }
             }
 
-            _currentRoom = _rooms[0]; // Comenzar en la primera habitación
             Console.WriteLine($"{_rooms.Count} habitaciones creadas en LoadContent.");
             Console.WriteLine("La habitación actual es: " + (_currentRoom != null ? "No es null" : "Es null"));
         }
 
         public void Update(GameTime gameTime, Player player)
         {
-             if (_currentRoom == null)
-            {
-                Console.WriteLine("Error: _currentRoom es null al entrar a Update");
-                return;
-            }
-
             _currentRoom.Update(gameTime, player);
 
             // Chequear si el jugador se acerca a una pared
@@ -117,6 +109,7 @@ namespace RogueGame.Rooms
                         else
                         {
                             _currentRoom = next;
+                            _currentRoom.isDiscovered = true;
                             player.SetPositionToRoomEntrance(nextRoom);
                         }
                     }
@@ -159,6 +152,15 @@ namespace RogueGame.Rooms
 
             if (_currentRoom != null)
                 player.Position = new Vector2(Data.ScreenW / 2, Data.ScreenH / 2);
+        }
+        public List<Room> GetRooms()
+        {
+            return _rooms;
+        }
+
+        public Room GetCurrentRoom()
+        {
+            return _currentRoom;
         }
     }
 }

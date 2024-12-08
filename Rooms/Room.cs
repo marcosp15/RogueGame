@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -13,14 +14,16 @@ namespace RogueGame.Rooms
     public class Room
     {
         private Room[] habitaciones;
-        private List<Enemy> enemigos;
+        private List<Entity> enemigos;
         private Texture2D _gameAreaTexture;
-        public bool IsCleared => enemigos.TrueForAll(e => !e.IsAlive);
+        public bool IsCleared => enemigos.TrueForAll(e => !e.IsAlive());
         public string nombre;
+        public bool isDiscovered {get; set;} = false;
+        public Vector2 MapPosition {get; set;} = new Vector2(0,0);
         public Room(int numero)
         {
             habitaciones = new Room[4];
-            enemigos = new List<Enemy>();
+            enemigos = new List<Entity>();
             nombre = numero.ToString();
         }
 
@@ -30,6 +33,22 @@ namespace RogueGame.Rooms
             {
                 habitaciones[pos] = newRoom;
                 newRoom.habitaciones[(pos+2)%4] = this;
+
+                switch (pos)
+                {
+                    case 0: // newRoom arriba
+                        newRoom.MapPosition = new Vector2(MapPosition.X, MapPosition.Y + 1);
+                        break;
+                    case 1: // newRoom Derecha
+                        newRoom.MapPosition = new Vector2(MapPosition.X + 1, MapPosition.Y);
+                        break;
+                    case 2: // newRoom abajo
+                        newRoom.MapPosition = new Vector2(MapPosition.X, MapPosition.Y - 1);
+                        break;
+                    case 3: // newRoom Izquierda
+                        newRoom.MapPosition = new Vector2(MapPosition.X - 1, MapPosition.Y);
+                        break;
+                }
             }
         }
 
@@ -54,7 +73,7 @@ namespace RogueGame.Rooms
         {
             foreach (var enemy in enemigos)
             {
-                if (enemy.IsAlive)
+                if (enemy.IsAlive())
                     enemy.Update(gameTime,player);
                 foreach (var otherEnemy in enemigos)
                 {
@@ -74,12 +93,12 @@ namespace RogueGame.Rooms
 
             foreach (var enemy in enemigos)
             {
-                if (enemy.IsAlive)
+                if (enemy.IsAlive())
                     enemy.Draw(spriteBatch);
             }
         }
 
-        private void AvoidEnemyOverlap(Enemy enemy, Enemy otherEnemy)
+        private void AvoidEnemyOverlap(Entity enemy, Entity otherEnemy)
         {
             Vector2 enemyCenter = enemy.Position + new Vector2(enemy.Width / 2, enemy.Height / 2);
             Vector2 otherEnemyCenter = otherEnemy.Position + new Vector2(otherEnemy.Width / 2, otherEnemy.Height / 2);
@@ -102,7 +121,7 @@ namespace RogueGame.Rooms
             }
         }
 
-        public List<Enemy> getEnemies()
+        public List<Entity> getEnemies()
         {
             return enemigos;
         }
@@ -110,6 +129,23 @@ namespace RogueGame.Rooms
         public Room GetRoom(int i)
         {
             return habitaciones[i];
+        }
+
+        public bool isLeftOf(Room room)
+        {
+            return habitaciones[1] == room ? true : false;
+        }
+        public bool isRightOf(Room room)
+        {
+            return habitaciones[3] == room ? true : false;
+        }
+        public bool isAboveOf(Room room)
+        {
+            return habitaciones[2] == room ? true : false;
+        }
+        public bool isBelowOf(Room room)
+        {
+            return habitaciones[0] == room ? true : false;
         }
     }
 }

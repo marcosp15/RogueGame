@@ -30,3 +30,7 @@ e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\Arial.xnb
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\defaultProyectil.xnb
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\arenabackground.xnb
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\border.xnb
+e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\minimapTexture.xnb
+e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\Boss0.xnb
+e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\Enemy1.xnb
+e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\proyEnemy1.xnb

@@ -13,9 +13,8 @@ namespace RogueGame.Entities
     {
         public float Speed { get; set; } = 500f;
         public int Health { get; set; } = 3;
-        public bool IsAlive => Health > 0;
         public int Damage {get; set;} = 1;
-        public float DamageCooldown {get; set;} = 0.2f;
+        public float DamageCooldown {get; set;} = 0.4f;
         private List<Proyectil> proyectiles;
         public Texture2D ProyectilTexture {get; set;}
         public float ProyectilSpeed {get; set;} = 10f;
@@ -31,7 +30,7 @@ namespace RogueGame.Entities
             HandleInput(gameTime);
         }
 
-        public void UpdateProyectiles(GameTime gameTime, List<Enemy> enemigos)
+        public void UpdateProyectiles(GameTime gameTime, List<Entity> enemigos)
         {
             List<Proyectil> proyToRemove = new List<Proyectil>();
             foreach (var proy in proyectiles)
@@ -42,18 +41,17 @@ namespace RogueGame.Entities
             {
                 proyectiles.Remove(proy);
             }
-            _shootCooldownTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         private void HandleInput(GameTime gameTime)
         {
-            var keyboardState = Keyboard.GetState();
+            var ks = Keyboard.GetState();
             Vector2 movement = Vector2.Zero;
 
-            if (keyboardState.IsKeyDown(Keys.W)) movement.Y = -1;
-            if (keyboardState.IsKeyDown(Keys.S)) movement.Y = 1;
-            if (keyboardState.IsKeyDown(Keys.A)) movement.X = -1;
-            if (keyboardState.IsKeyDown(Keys.D)) movement.X = 1;
+            if (ks.IsKeyDown(Keys.W)) movement.Y = -1;
+            if (ks.IsKeyDown(Keys.S)) movement.Y = 1;
+            if (ks.IsKeyDown(Keys.A)) movement.X = -1;
+            if (ks.IsKeyDown(Keys.D)) movement.X = 1;
 
             if (movement != Vector2.Zero)
                 movement.Normalize();  // Para evitar moverse más rápido en diagonal
@@ -66,28 +64,29 @@ namespace RogueGame.Entities
             );
 
             //Proyectiles
-            if (_shootCooldownTimer >= DamageCooldown)
+            if (_shootCooldownTimer <= 0f)
             {
-                if (keyboardState.IsKeyDown(Keys.Up) && keyboardState.IsKeyDown(Keys.Left)) Shoot (new Vector2(-1,-1));
-                else if (keyboardState.IsKeyDown(Keys.Up) && keyboardState.IsKeyDown(Keys.Right)) Shoot (new Vector2(1,-1));
-                else if (keyboardState.IsKeyDown(Keys.Down) && keyboardState.IsKeyDown(Keys.Left)) Shoot (new Vector2(-1,1));
-                else if (keyboardState.IsKeyDown(Keys.Down) && keyboardState.IsKeyDown(Keys.Right)) Shoot (new Vector2(1,1));
-                else if (keyboardState.IsKeyDown(Keys.Up)) Shoot(new Vector2(0,-1));
-                else if (keyboardState.IsKeyDown(Keys.Down)) Shoot(new Vector2(0,1));
-                else if (keyboardState.IsKeyDown(Keys.Left)) Shoot(new Vector2(-1,0));
-                else if (keyboardState.IsKeyDown(Keys.Right)) Shoot(new Vector2(1,0));
-                _shootCooldownTimer = 0f;
-            }
+                if (ks.IsKeyDown(Keys.Up) && ks.IsKeyDown(Keys.Left)) Shoot(new Vector2(-1,-1));
+                else if (ks.IsKeyDown(Keys.Up) && ks.IsKeyDown(Keys.Right)) Shoot(new Vector2(1,-1));
+                else if (ks.IsKeyDown(Keys.Down) && ks.IsKeyDown(Keys.Left)) Shoot(new Vector2(-1,1));
+                else if (ks.IsKeyDown(Keys.Down) && ks.IsKeyDown(Keys.Right)) Shoot(new Vector2(1,1));
+                else if (ks.IsKeyDown(Keys.Up)) Shoot(new Vector2(0,-1));
+                else if (ks.IsKeyDown(Keys.Down)) Shoot(new Vector2(0,1));
+                else if (ks.IsKeyDown(Keys.Left)) Shoot(new Vector2(-1,0));
+                else if (ks.IsKeyDown(Keys.Right)) Shoot(new Vector2(1,0));
 
+                _shootCooldownTimer = DamageCooldown;
+            }
+            _shootCooldownTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         private void Shoot(Vector2 direction)
         {
-            Proyectil proyectil = new Proyectil(ProyectilTexture,Position,direction,ProyectilSpeed, Damage);
-            proyectiles.Add(proyectil);
+            direction.Normalize();
+            proyectiles.Add(new Proyectil(ProyectilTexture,new Vector2(Position.X+8,Position.Y),direction,ProyectilSpeed, Damage));
         }
 
-        internal void TakeDamage(int damage)
+        override public void TakeDamage(int damage)
         {
             Health = Math.Max(Health - damage, 0);
         }
@@ -142,5 +141,11 @@ namespace RogueGame.Entities
             else if (pos == 3)
                 Position = new Vector2(Data.ScreenW - 32, Data.ScreenH / 2);
         }
+
+        override public bool IsAlive()
+        {
+            return Health > 0;
+        }
     }
 }
+        

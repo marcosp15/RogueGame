@@ -2,6 +2,10 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "E:/PC/repositorios/RogueGame/Content/arenabackground.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/arenabackground.xnb","TextureProcessor","Texture2DContent",2885480,3840085,0.2053675
 "E:/PC/repositorios/RogueGame/Content/Arial.spritefont","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/Arial.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21538,0.1694169
 "E:/PC/repositorios/RogueGame/Content/border.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/border.xnb","TextureProcessor","Texture2DContent",4196,4181,0.0236819
+"E:/PC/repositorios/RogueGame/Content/Boss0.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/Boss0.xnb","TextureProcessor","Texture2DContent",262892,262229,0.1025041
 "E:/PC/repositorios/RogueGame/Content/defaultProyectil.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/defaultProyectil.xnb","TextureProcessor","Texture2DContent",1108,1109,0.0931809
 "E:/PC/repositorios/RogueGame/Content/enemy0.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/enemy0.xnb","TextureProcessor","Texture2DContent",4196,4181,0.1022763
+"E:/PC/repositorios/RogueGame/Content/Enemy1.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/Enemy1.xnb","TextureProcessor","Texture2DContent",33017,32853,0.0227202
+"E:/PC/repositorios/RogueGame/Content/minimapTexture.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/minimapTexture.xnb","TextureProcessor","Texture2DContent",364,469,0.0869721
 "E:/PC/repositorios/RogueGame/Content/player.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/player.xnb","TextureProcessor","Texture2DContent",4196,4181,0.0855472
+"E:/PC/repositorios/RogueGame/Content/proyEnemy1.png","E:/PC/repositorios/RogueGame/Content/bin/DesktopGL/Content/proyEnemy1.xnb","TextureProcessor","Texture2DContent",268,341,0.0025322

@@ -11,8 +11,6 @@ namespace RogueGame.Entities
     {
         public int Health { get; protected set; }
         public int Damage { get; protected set; }
-        public bool IsAlive => Health > 0;
-
         protected float Speed;  // Velocidad del enemigo
         protected float DamageCooldown;  // Tiempo de espera entre ataques
         protected float DamageTimer;
@@ -26,10 +24,19 @@ namespace RogueGame.Entities
             DamageCooldown = 1.0f;  // Ejemplo: 1 segundo de cooldown
             DamageTimer = 0;
         }
+        override public bool IsAlive()
+        {
+            return Health > 0;
+        }
+        override public void TakeDamage(int damage)
+        {
+            Health = Math.Max(Health - damage, 0);
+            if (!IsAlive()) OnDeath();
+        }
 
         public override void Update(GameTime gameTime, Player player)
         {
-            if (!IsAlive) return;
+            if (!IsAlive()) return;
 
             Move(gameTime,player);
             DamageTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -37,17 +44,10 @@ namespace RogueGame.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (IsAlive)
+            if (IsAlive())
             {
                 base.Draw(spriteBatch);
             }
-        }
-
-        // Método para recibir daño
-        public void TakeDamage(int amount)
-        {
-            Health = Math.Max(Health - amount, 0);
-            if (!IsAlive) OnDeath();
         }
 
         protected virtual void OnDeath()
@@ -67,11 +67,6 @@ namespace RogueGame.Entities
                 player.TakeDamage(Damage);
                 DamageTimer = 0;
             }
-        }
-
-        public void SetPosition(Vector2 pos)
-        {
-            Position = pos;
         }
     
     }

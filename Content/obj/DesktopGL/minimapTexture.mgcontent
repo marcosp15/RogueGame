@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>e:/PC/repositorios/RogueGame/Content/player.png</SourceFile>
-  <SourceTime>2024-12-07T14:28:01.5158226-03:00</SourceTime>
-  <DestFile>e:/PC/repositorios/RogueGame/Content/bin/DesktopGL/player.xnb</DestFile>
+  <SourceFile>e:/PC/repositorios/RogueGame/Content/minimapTexture.png</SourceFile>
+  <SourceTime>2024-12-08T00:56:19.0787323-03:00</SourceTime>
+  <DestFile>e:/PC/repositorios/RogueGame/Content/bin/DesktopGL/minimapTexture.xnb</DestFile>
   <DestTime>2024-12-08T00:56:23.2453634-03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-16T14:05:56-03:00</ImporterTime>

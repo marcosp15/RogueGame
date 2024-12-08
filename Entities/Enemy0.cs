@@ -7,17 +7,24 @@ namespace RogueGame.Entities
 {
     public class Enemy0 : Enemy
     {
-        private Vector2 direction;
-
         public Enemy0(Texture2D texture, Vector2 startPosition) 
             : base(texture, startPosition, health: 3, damage: 1, speed: 50f)
         {
-            direction = new Vector2(1, 0);  // Comienza moviéndose hacia la derecha
+
+        }
+        override public bool IsAlive()
+        {
+            return Health > 0;
+        }
+
+        public override void TakeDamage(int damage)
+        {
+            Health = System.Math.Max(Health - damage, 0);
         }
 
         protected override void Move(GameTime gameTime, Player player)
         {
-            if (!IsAlive) return;
+            if (!IsAlive()) return;
 
             Vector2 direction = player.Position - Position;
             if (direction != Vector2.Zero)
