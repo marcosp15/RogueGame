@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RogueGame.Core;
+using RogueGame.Rooms;
 
 namespace RogueGame.Entities
 {
     public class Boss0 : Enemy
     {
         private Vector2 _direction;
-        public Boss0(Texture2D texture, Vector2 startPosition) 
-            : base(texture, startPosition, health: 100, damage: 1, speed: 150f)
+        public Boss0(RoomManager roomManager, Texture2D texture, Vector2 startPosition) 
+            : base(roomManager, texture, startPosition, health: 100, damage: 1, speed: 150f)
         {
             _direction = new Vector2(1,1);
             _direction.Normalize();

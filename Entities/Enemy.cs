@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RogueGame.Rooms;
 
 namespace RogueGame.Entities
 {
@@ -14,8 +15,11 @@ namespace RogueGame.Entities
         protected float Speed;  // Velocidad del enemigo
         protected float DamageCooldown;  // Tiempo de espera entre ataques
         protected float DamageTimer;
+        public Texture2D CoinTexture {get; set;}
+        private Random _random;
+        private RoomManager _roomManager;
 
-        public Enemy(Texture2D texture, Vector2 startPosition, int health, int damage, float speed)
+        public Enemy(RoomManager roomManager, Texture2D texture, Vector2 startPosition, int health, int damage, float speed)
             : base(texture, startPosition)
         {
             Health = health;
@@ -23,6 +27,8 @@ namespace RogueGame.Entities
             Speed = speed;
             DamageCooldown = 1.0f;  // Ejemplo: 1 segundo de cooldown
             DamageTimer = 0;
+            _random = new Random();
+            _roomManager = roomManager;
         }
         override public bool IsAlive()
         {
@@ -52,10 +58,19 @@ namespace RogueGame.Entities
 
         protected virtual void OnDeath()
         {
-            // Lógica al morir (drop de ítems, efectos, etc.)
+            DropItem();
             Console.WriteLine("Enemy has been defeated!");
         }
 
+        private void DropItem()
+        {
+            if (_random.NextDouble() < 1)
+            {
+                Vector2 DropPosition = new Vector2(Position.X+Width/2, Position.Y+Height/2);
+                Coin coin = new Coin(CoinTexture, DropPosition, 1);
+                _roomManager.coins.Add(coin);
+            }
+        }
         // Método abstracto que define el movimiento específico del enemigo
         protected abstract void Move(GameTime gameTime, Player player);
 

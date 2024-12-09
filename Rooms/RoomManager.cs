@@ -19,12 +19,14 @@ namespace RogueGame.Rooms
         private Random random;
         private MiniMap _miniMap;
 
+        public List<Item> coins {get; set;}
         public RoomManager(ContentManager content, MiniMap miniMap)
         {
             _rooms = new List<Room>();
             random = new Random();
             Content = content;
             _miniMap = miniMap;
+            coins = new List<Item>();
         }
 
         public void LoadContent(ContentManager content)
@@ -33,6 +35,7 @@ namespace RogueGame.Rooms
             var enemy1Texture = content.Load<Texture2D>("Enemy1");
             var boss0Texture = content.Load<Texture2D>("Boss0");
             var proyectilEnemy1Texture = content.Load<Texture2D>("proyEnemy1");
+            var coinTexture = content.Load<Texture2D>("coin1");
 
             Queue<Room> habitaciones_disponibles = new Queue<Room>();
 
@@ -42,19 +45,20 @@ namespace RogueGame.Rooms
             habitaciones_disponibles.Enqueue(r);
             _currentRoom = _rooms[0]; // Comenzar en la primera habitación
             _currentRoom.isDiscovered = true;
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < 7; i++)
             {
                 r = new Room(i);
                 r.LoadContent(content);
                 for (int j = 0; j < 1 + random.Next() % 5; j++)
                 {
-                    if (random.NextDouble() < 0.7)
+                    if (random.NextDouble() < 0.5)
                     {
-                        Enemy1 enemy1 = new Enemy1(enemy1Texture, new Vector2(400 + random.Next() % 400, 200 + random.Next() % 400));
+                        Enemy1 enemy1 = new Enemy1(this, enemy1Texture, new Vector2(400 + random.Next() % 400, 200 + random.Next() % 400));
                         enemy1.ProyectilTexture = proyectilEnemy1Texture;
+                        enemy1.CoinTexture = coinTexture;
                         r.AddEnemy(enemy1);
                     }
-                    r.AddEnemy(new Enemy0(enemy0Texture, new Vector2(200 + random.Next() % 800, 200 + random.Next() % 400)));
+                    r.AddEnemy(new Enemy0(this, enemy0Texture, new Vector2(200 + random.Next() % 800, 200 + random.Next() % 400)));
                 }
                 _rooms.Add(r);
                 habitaciones_disponibles.Enqueue(r);
@@ -64,7 +68,7 @@ namespace RogueGame.Rooms
                 Room room = habitaciones_disponibles.Dequeue();
                 if (habitaciones_disponibles.Count == 0)
                 {
-                    room.AddEnemy(new Boss0(boss0Texture, new Vector2(0,0)));
+                    room.AddEnemy(new Boss0(this, boss0Texture, new Vector2(0,0)));
                 }
                 for (int i = 0; i < 4; i++)
                 {
@@ -88,6 +92,9 @@ namespace RogueGame.Rooms
         public void Update(GameTime gameTime, Player player)
         {
             _currentRoom.Update(gameTime, player);
+
+            foreach (var coin in coins)
+                coin.Update(gameTime, player);
 
             // Chequear si el jugador se acerca a una pared
             if (_currentRoom.IsCleared)
@@ -139,6 +146,10 @@ namespace RogueGame.Rooms
         public void Draw(SpriteBatch spriteBatch)
         {
             _currentRoom.Draw(spriteBatch);
+            foreach (var coin in coins)
+            {
+                coin.Draw(spriteBatch);
+            }
             spriteBatch.DrawString(Game1.font, $"HABITACION: {_currentRoom.nombre}", new Vector2(100, 20), Color.Green);
         }
 

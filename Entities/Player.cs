@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using JuegoHorda.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,10 +20,12 @@ namespace RogueGame.Entities
         public Texture2D ProyectilTexture {get; set;}
         public float ProyectilSpeed {get; set;} = 10f;
         private float _shootCooldownTimer;
+        public int Money {get; set;}
 
         public Player(Texture2D texture, Vector2 startPosition) : base(texture, startPosition)
         {
             proyectiles = new List<Proyectil>();
+            Money = 0;
         }
 
         public override void Update(GameTime gameTime, Player player)
@@ -116,6 +119,9 @@ namespace RogueGame.Entities
             // Dibujar las estadísticas
             spriteBatch.DrawString(Game1.font, $"HP: {Health}", new Vector2(x, y), Color.White);
             y += inc;  // Separar las estadísticas
+
+            spriteBatch.DrawString(Game1.font, $"Mon: {Money}", new Vector2(x,y), Color.White);
+            y += inc;
 
             spriteBatch.DrawString(Game1.font, $"Spd: {Speed}", new Vector2(x, y), Color.White);
             y += inc;

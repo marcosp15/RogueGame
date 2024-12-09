@@ -34,3 +34,4 @@ e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\minimapTexture.xnb
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\Boss0.xnb
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\Enemy1.xnb
 e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\proyEnemy1.xnb
+e:\PC\repositorios\RogueGame\bin\Debug\net8.0\Content\coin1.xnb

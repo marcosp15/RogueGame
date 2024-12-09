@@ -2,13 +2,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RogueGame.Core;
 using RogueGame.Entities;
+using RogueGame.Rooms;
 
 namespace RogueGame.Entities
 {
     public class Enemy0 : Enemy
     {
-        public Enemy0(Texture2D texture, Vector2 startPosition) 
-            : base(texture, startPosition, health: 3, damage: 1, speed: 50f)
+        public Enemy0(RoomManager roomManager, Texture2D texture, Vector2 startPosition) 
+            : base(roomManager, texture, startPosition, health: 3, damage: 1, speed: 50f)
         {
 
         }

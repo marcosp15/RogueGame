@@ -8,6 +8,7 @@
     <File>e:/PC/repositorios/RogueGame/Content/Arial.spritefont</File>
     <File>e:/PC/repositorios/RogueGame/Content/border.png</File>
     <File>e:/PC/repositorios/RogueGame/Content/Boss0.png</File>
+    <File>e:/PC/repositorios/RogueGame/Content/coin1.png</File>
     <File>e:/PC/repositorios/RogueGame/Content/defaultProyectil.png</File>
     <File>e:/PC/repositorios/RogueGame/Content/enemy0.png</File>
     <File>e:/PC/repositorios/RogueGame/Content/Enemy1.png</File>
@@ -16,6 +17,7 @@
     <File>e:/PC/repositorios/RogueGame/Content/proyEnemy1.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -6,6 +6,7 @@ using JuegoHorda.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RogueGame.Core;
+using RogueGame.Rooms;
 
 namespace RogueGame.Entities
 {
@@ -20,8 +21,8 @@ namespace RogueGame.Entities
         private float _actualintervalo;
         private Vector2 _direction;
 
-        public Enemy1(Texture2D texture, Vector2 startPosition) 
-            : base(texture, startPosition, health: 6, damage: 1, speed: 50f)
+        public Enemy1(RoomManager roomManager, Texture2D texture, Vector2 startPosition) 
+            : base(roomManager, texture, startPosition, health: 6, damage: 1, speed: 50f)
         {
             proyectiles = new List<Proyectil>();
             _random = new Random();
